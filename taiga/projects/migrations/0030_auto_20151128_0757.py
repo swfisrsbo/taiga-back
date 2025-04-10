@@ -8,9 +8,8 @@
 from __future__ import unicode_literals
 
 from django.db import connection, migrations, models
-from django.utils.timezone import utc
-import datetime
-
+from datetime import datetime, timezone
+utc = timezone.utc
 
 def update_totals(apps, schema_editor):
     model = apps.get_model("projects", "Project")
@@ -165,7 +164,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='project',
             name='totals_updated_datetime',
-            field=models.DateTimeField(default=datetime.datetime(2015, 11, 28, 7, 57, 11, 743976, tzinfo=utc), auto_now_add=True, verbose_name='updated date time', db_index=True),
+            field=models.DateTimeField(default=datetime(2015, 11, 28, 7, 57, 11, 743976, tzinfo=utc), auto_now_add=True, verbose_name='updated date time', db_index=True),
             preserve_default=False,
         ),
         migrations.RunPython(update_totals),
