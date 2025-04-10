@@ -45,6 +45,7 @@ from .extensions.target_link import TargetBlankLinkExtension
 from .extensions.refresh_attachment import RefreshAttachmentExtension
 
 # Bleach configuration
+bleach.ALLOWED_TAGS = list(bleach.ALLOWED_TAGS)
 bleach.ALLOWED_TAGS += ["p", "table", "thead", "tbody", "th", "tr", "td", "h1",
                         "h2", "h3", "h4", "h5", "h6", "div", "pre", "span",
                         "hr", "dl", "dt", "dd", "sup", "img", "del", "br",
