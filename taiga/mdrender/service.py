@@ -51,7 +51,7 @@ bleach.ALLOWED_TAGS += ["p", "table", "thead", "tbody", "th", "tr", "td", "h1",
                         "hr", "dl", "dt", "dd", "sup", "img", "del", "br",
                         "ins", "input", "label"]
 
-bleach.ALLOWED_STYLES.append("background")
+#bleach.ALLOWED_STYLES.append("background")
 
 bleach.ALLOWED_ATTRIBUTES["a"] = ["href", "title", "alt", "target"]
 bleach.ALLOWED_ATTRIBUTES["img"] = ["alt", "src"]
