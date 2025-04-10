@@ -288,9 +288,7 @@ class Project(ProjectDefaults, TaggedMixin, TagsColorsMixin, models.Model):
         verbose_name = "project"
         verbose_name_plural = "projects"
         ordering = ["name", "id"]
-        indexes = [
-            ["name", "id"],
-        ]
+        indexes = [models.Index(fields=["name", "id"])]
 
     def __str__(self):
         return self.name
