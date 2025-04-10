@@ -30,8 +30,7 @@
 #   SOFTWARE.
 
 from calendar import timegm
-from datetime.timezone import utc
-from datetime import datetime
+from datetime import datetime, timezone
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.timezone import is_naive, make_aware
@@ -39,7 +38,7 @@ from django.utils.timezone import is_naive, make_aware
 
 def make_utc(dt):
     if settings.USE_TZ and is_naive(dt):
-        return make_aware(dt, timezone=utc)
+        return make_aware(dt, timezone=timezone.utc)
 
     return dt
 
