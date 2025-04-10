@@ -107,7 +107,7 @@ class EpicCustomAttributesValues(AbstractCustomAttributesValues):
     class Meta(AbstractCustomAttributesValues.Meta):
         verbose_name = "epic custom attributes values"
         verbose_name_plural = "epic custom attributes values"
-        index_together = [("epic",)]
+        indexes = [("epic",)]
 
     @property
     def project(self):
@@ -128,7 +128,7 @@ class UserStoryCustomAttributesValues(AbstractCustomAttributesValues):
     class Meta(AbstractCustomAttributesValues.Meta):
         verbose_name = "user story custom attributes values"
         verbose_name_plural = "user story custom attributes values"
-        index_together = [("user_story",)]
+        indexes = [("user_story",)]
 
     @property
     def project(self):
@@ -149,7 +149,7 @@ class TaskCustomAttributesValues(AbstractCustomAttributesValues):
     class Meta(AbstractCustomAttributesValues.Meta):
         verbose_name = "task custom attributes values"
         verbose_name_plural = "task custom attributes values"
-        index_together = [("task",)]
+        indexes = [("task",)]
 
     @property
     def project(self):
@@ -170,7 +170,7 @@ class IssueCustomAttributesValues(AbstractCustomAttributesValues):
     class Meta(AbstractCustomAttributesValues.Meta):
         verbose_name = "issue custom attributes values"
         verbose_name_plural = "issue custom attributes values"
-        index_together = [("issue",)]
+        indexes = [("issue",)]
 
     @property
     def project(self):
