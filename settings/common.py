@@ -10,30 +10,34 @@ import os.path
 import sys
 from datetime import timedelta
 
+_env = os.environ
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 APPEND_SLASH = False
-ALLOWED_HOSTS = ["*"]
 
-ADMINS = (
-    ("Admin", "example@example.com"),
-)
-
-DEBUG = False
+DEBUG = _env.get('DEBUG', False)
+DB_NAME = _env.get('DB_NAME', 'taiga')
+DB_HOST = _env.get('DB_HOST', 'taiga-db')
+DB_USER = _env.get('DB_USER', 'taiga')
+DB_PASS = _env.get('DB_PASS', 'taiga')
+ALLOWED_HOSTS = _env.get('ALLOWED_HOSTS', ['*'])
+ADMINS = _env.get('ADMINS', ('Admin', 'taiga@example.com'))
+SECRET_KEY = _env.get('SECRET_KEY', 'taiga0123456789abcdefghijklmnop')
+TIME_ZONE = _env.get('TIME_ZONE', 'UTC')
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "taiga",
-        "USER": "taiga",
-        "PASSWORD": "taiga",
-        "HOST": "rsbo-postgres"
+        "NAME": DB_NAME,
+        "USER": DB_USER,
+        "PASSWORD": DB_PASS,
+        "HOST": DB_HOST
     }
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
-
 
 CACHES = {
     "default": {
@@ -53,7 +57,7 @@ CELERY_RESULT_BACKEND = None # for a general installation, we don't need to stor
 CELERY_ACCEPT_CONTENT = ['pickle', ]  # Values are 'pickle', 'json', 'msgpack' and 'yaml'
 CELERY_TASK_SERIALIZER = "pickle"
 CELERY_RESULT_SERIALIZER = "pickle"
-CELERY_TIMEZONE = 'Europe/Madrid'
+CELERY_TIMEZONE = TIME_ZONE
 CELERY_TASK_DEFAULT_QUEUE = 'tasks'
 CELERY_QUEUES = (
     Queue('tasks', routing_key='task.#'),
@@ -78,7 +82,6 @@ IGNORABLE_404_ENDS = (".php", ".cgi")
 IGNORABLE_404_STARTS = ("/phpmyadmin/",)
 
 ATOMIC_REQUESTS = True
-TIME_ZONE = "UTC"
 LOGIN_URL = "/auth/login/"
 USE_TZ = True
 
@@ -224,8 +227,6 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # The absolute url is mandatory because attachments
 # urls depends on it. On production should be set
 # something like https://media.taiga.io/
-MEDIA_URL = "/media/"
-STATIC_URL = "/static/"
 
 # Static configuration.
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -245,8 +246,6 @@ STATICFILES_DIRS = (
 DEFAULT_FILE_STORAGE = "taiga.base.storage.FileSystemStorage"
 
 FILE_UPLOAD_PERMISSIONS = 0o644
-
-SECRET_KEY = "aw3+t2r(8(0kkrhg8)gx6i96v5^kv%6cfep9wxfom0%7dy0m9e"
 
 TEMPLATES = [
     {
