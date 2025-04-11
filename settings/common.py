@@ -13,7 +13,7 @@ from datetime import timedelta
 _env = os.environ
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 APPEND_SLASH = False
-DEBUG = _env.get('DEBUG', False)
+DEBUG = _env.get('DEBUG', 'False')
 DB_ENGINE = _env.get('DB_ENGINE', 'django.db.backends.postgresql')
 DB_NAME = _env.get('DB_NAME', 'taiga')
 DB_HOST = _env.get('DB_HOST', 'taiga-db')
