@@ -28,7 +28,7 @@ MEDIA_ROOT = _env.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = _env.get('MEDIA_URL', '/media')
 STATIC_ROOT = _env.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 STATIC_URL = _env.get('STATIC_URL', '/static')
-USE_X_FORWARDED_HOST = True
+#USE_X_FORWARDED_HOST = True
 
 DATABASES = {
     "default": {
