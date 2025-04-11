@@ -18,6 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 APPEND_SLASH = False
 
 DEBUG = _env.get('DEBUG', False)
+DB_ENGINE = _env.get('DB_ENGINE', 'django.db.backends.postgresql')
 DB_NAME = _env.get('DB_NAME', 'taiga')
 DB_HOST = _env.get('DB_HOST', 'taiga-db')
 DB_USER = _env.get('DB_USER', 'taiga')
@@ -29,7 +30,7 @@ TIME_ZONE = _env.get('TIME_ZONE', 'UTC')
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": DB_ENGINE,
         "NAME": DB_NAME,
         "USER": DB_USER,
         "PASSWORD": DB_PASS,
