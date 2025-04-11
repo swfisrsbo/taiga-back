@@ -11,12 +11,8 @@ import sys
 from datetime import timedelta
 
 _env = os.environ
-
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
 APPEND_SLASH = False
-
 DEBUG = _env.get('DEBUG', False)
 DB_ENGINE = _env.get('DB_ENGINE', 'django.db.backends.postgresql')
 DB_NAME = _env.get('DB_NAME', 'taiga')
@@ -27,6 +23,10 @@ ALLOWED_HOSTS = _env.get('ALLOWED_HOSTS', ['*'])
 ADMINS = _env.get('ADMINS', ('Admin', 'taiga@example.com'))
 SECRET_KEY = _env.get('SECRET_KEY', 'taiga0123456789abcdefghijklmnop')
 TIME_ZONE = _env.get('TIME_ZONE', 'UTC')
+MEDIA_ROOT = _env.get('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+MEDIA_URL = _env.get('MEDIA_URL', '/media')
+STATIC_ROOT = _env.get('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
+STATIC_URL = _env.get('STATIC_URL', '/static')
 
 DATABASES = {
     "default": {
@@ -68,7 +68,6 @@ CELERY_TASK_DEFAULT_EXCHANGE = 'tasks'
 CELERY_TASK_DEFAULT_EXCHANGE_TYPE = 'topic'
 CELERY_TASK_DEFAULT_ROUTING_KEY = 'task.default'
 
-
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
 ]
@@ -79,8 +78,6 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Errors report configuration
 SEND_BROKEN_LINK_EMAILS = True
-IGNORABLE_404_ENDS = (".php", ".cgi")
-IGNORABLE_404_STARTS = ("/phpmyadmin/",)
 
 ATOMIC_REQUESTS = True
 LOGIN_URL = "/auth/login/"
@@ -88,8 +85,6 @@ USE_TZ = True
 
 USE_I18N = True
 USE_L10N = True
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
 # Languages we provide translations for, out of the box.
@@ -192,7 +187,6 @@ SITES = {
     "api": {"domain": "localhost:8000", "scheme": "http", "name": "api"},
     "front": {"domain": "localhost:9001", "scheme": "http", "name": "front"},
 }
-
 SITE_ID = "api"
 
 # Session and CSRF configuration
@@ -229,23 +223,15 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # urls depends on it. On production should be set
 # something like https://media.taiga.io/
 
-# Static configuration.
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Don't forget to use absolute paths, not relative paths.
 )
 
-# Default storage
 DEFAULT_FILE_STORAGE = "taiga.base.storage.FileSystemStorage"
-
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 TEMPLATES = [
@@ -288,24 +274,20 @@ TEMPLATES = [
     },
 ]
 
-
 MIDDLEWARE = [
     "taiga.base.middleware.cors.CorsMiddleware",
     "taiga.events.middleware.SessionIDMiddleware",
-
     # Common middlewares
     "django.middleware.common.CommonMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-
     # Only needed by django admin
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 ]
-
 
 ROOT_URLCONF = "taiga.urls"
 
@@ -318,7 +300,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
     "django.contrib.postgres",
-
     "taiga.base",
     "taiga.base.api",
     "taiga.locale",
@@ -356,7 +337,6 @@ INSTALLED_APPS = [
     "taiga.hooks.gogs",
     "taiga.webhooks",
     "taiga.importers",
-
     "djmail",
     "django_jinja",
     "django_jinja.contrib._humanize",
@@ -445,7 +425,6 @@ LOGGING = {
     }
 }
 
-
 AUTH_USER_MODEL = "users.User"
 
 SIMPLE_JWT = {
@@ -455,7 +434,6 @@ SIMPLE_JWT = {
 }
 
 FLUSH_REFRESHED_TOKENS_PERIODICITY = 3 * 24 * 3600 # seconds
-
 FORMAT_MODULE_PATH = "taiga.base.formats"
 
 DATE_INPUT_FORMATS = (
@@ -522,15 +500,11 @@ DEFAULT_PROJECT_SLUG_PREFIX = True
 PUBLIC_REGISTER_ENABLED = False
 # None or [] values in USER_EMAIL_ALLOWED_DOMAINS means allow any domain
 USER_EMAIL_ALLOWED_DOMAINS = None
-
 PRIVATE_USER_PROFILES = False
-
 SEARCHES_MAX_RESULTS = 150
-
 SOUTH_MIGRATION_MODULES = {
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
-
 
 THN_AVATAR_SIZE = 80                # 80x80 pixels
 THN_AVATAR_BIG_SIZE = 300           # 300x300 pixels
@@ -579,21 +553,7 @@ PROJECT_MODULES_CONFIGURATORS = {
 }
 
 # Official BitBucket valid IPs are https://confluence.atlassian.com/cloud/atlassian-cloud-ip-ranges-and-domains-744721662.html#AtlassiancloudIPrangesanddomains-OutgoingConnections
-BITBUCKET_VALID_ORIGIN_IPS = [
-    "13.52.5.96/28",
-    "13.236.8.224/28",
-    "18.184.99.224/28",
-    "18.234.32.224/28",
-    "18.246.31.224/28",
-    "52.215.192.224/28",
-    "104.192.137.240/28",
-    "104.192.138.240/28",
-    "104.192.140.240/28",
-    "104.192.142.240/28",
-    "104.192.143.240/28",
-    "185.166.143.240/28",
-    "185.166.142.240/28"
-]
+BITBUCKET_VALID_ORIGIN_IPS = []
 
 GITLAB_VALID_ORIGIN_IPS = []
 
@@ -608,14 +568,12 @@ FRONT_SITEMAP_ENABLED = False
 FRONT_SITEMAP_CACHE_TIMEOUT = 24 * 60 * 60  # In second
 FRONT_SITEMAP_PAGE_SIZE = 25000
 
-
 EXTRA_BLOCKING_CODES = []
 
 MAX_PRIVATE_PROJECTS_PER_USER = None  # None == no limit
 MAX_PUBLIC_PROJECTS_PER_USER = None  # None == no limit
 MAX_MEMBERSHIPS_PRIVATE_PROJECTS = None  # None == no limit
 MAX_MEMBERSHIPS_PUBLIC_PROJECTS = None  # None == no limit
-
 MAX_PENDING_MEMBERSHIPS = 30  # Max number of unconfirmed memberships in a project
 
 # DJANGO SETTINGS RESOLVER
@@ -667,8 +625,7 @@ MDRENDER_CACHE_MIN_SIZE = 40
 MDRENDER_CACHE_TIMEOUT = 86400
 
 # TELEMETRY
-
-ENABLE_TELEMETRY = True
+ENABLE_TELEMETRY = False
 RUDDER_WRITE_KEY = "1kmTTxJoSmaZNRpU1uORpyZ8mqv"
 DATA_PLANE_URL = "https://telemetry.taiga.io/"
 INSTALLED_APPS += [
